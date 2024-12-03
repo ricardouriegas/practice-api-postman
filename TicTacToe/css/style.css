@@ -1,0 +1,178 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 50px;
+}
+
+h1, h2 {
+    color: #ffffff;
+    /* shadown */
+    text-shadow: 2px 2px 4px #000000;
+
+    /* center */
+    text-align: center;
+}
+
+input, button {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: transform .5s ease;
+}
+
+button:hover {
+    transform: scale(1.08);
+}
+
+/* Rounded container with blur */
+.blur-container {
+    background: rgba(0, 0, 0, 0.295);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    overflow-y: auto;
+    /* center margin */
+    margin: 0 auto;
+    width: 90%;
+    max-width: 600px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    /* center all the items inside */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+/* Background animation */
+.blur-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(270deg, #f3d4f7, #c698f5, #a1ade6, #a8f2f5, #e7afaf);
+    background-size: 400% 400%;
+    animation: gradientAnimation 20s ease infinite;
+    z-index: -1; /* Place behind content */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 10px;
+    margin: 20px auto;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    /* border: 2px solid #333; */
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease; /* Transición suave al hacer hover */
+}
+
+.cell:hover {
+    transform: scale(1.05); 
+}
+
+/* /////////////////////////////////////////////////////////////// */
+/* animation */
+/* /////////////////////////////////////////////////////////////// */
+.rolldown-list {
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    counter-reset: list-counter; /* Inicializa el contador */
+}
+
+.rolldown-list li {
+    padding: 1em;
+    margin-bottom: 2em;
+    display: inline-block;
+    text-transform: uppercase;
+    border-radius: 20px;
+    position: relative;
+    animation: rolldown .7s 1;
+    transform-origin: 50% 0;
+    animation-fill-mode: forwards;
+    counter-increment: list-counter; /* Incrementa el contador */
+    transition: transform 0.3s ease; /* Transición suave al hacer hover */
+}
+
+.rolldown-list li:hover {
+    transform: scale(1.05); /* Pequeño efecto de zoom en hover */
+}
+
+.rolldown-list li::before {
+    content: counter(list-counter); /* Muestra el número del contador */
+    position: absolute;
+    top: -2em;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #1f1f1f;
+    opacity: 0; /* Empieza invisible */
+    transition: opacity 0.4s ease, top 0.4s ease; /* Transiciones para suavizar la aparición */
+}
+
+.rolldown-list li:hover::before {
+    opacity: 1; /* Hace visible el número gradualmente */
+    top: -1em; /* Desplaza el número suavemente hacia arriba */
+}
+
+.rolldown-list li:nth-child(2n) {
+    background-color: #dccfec5b;
+}
+
+.rolldown-list li:nth-child(2n+1) {
+    background-color: #ff66f760;
+}
+
+@keyframes rolldown {
+    0% {
+        visibility: visible;
+        transform: rotateX(180deg) perspective(500px);
+    }
+    70% {
+        visibility: visible;
+        transform: rotateX(-20deg);
+    }
+    100% {
+        visibility: visible;
+        transform: rotateX(0deg);
+    }
+}
